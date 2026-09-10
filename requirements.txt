@@ -5,3 +5,5 @@ mysqlclient
 python-dotenv
 django-cors-headers
 django-filter
+pdfplumber
+python-docx
