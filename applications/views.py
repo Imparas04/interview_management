@@ -35,7 +35,16 @@ class ApplicationListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         candidate, _ = CandidateProfile.objects.get_or_create(user=self.request.user)
-        serializer.save(candidate=candidate, status=Application.Status.APPLIED)
+        application = serializer.save(candidate=candidate, status=Application.Status.APPLIED)
+
+        from notifications.services import notify_role
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        notify_role(
+            User.Role.HR,
+            f"New candidate application received. Candidate: {candidate.user.username}, Job: {application.job.title}.",
+            notif_type='application',
+        )
 
 
 class ApplicationDetailView(generics.RetrieveAPIView):

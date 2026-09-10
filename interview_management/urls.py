@@ -10,4 +10,6 @@ urlpatterns = [
     path('api/resumes/', include('resumes.urls')),
     path('api/ats/', include('ats.urls')),
     path('api/applications/', include('applications.urls')),
+    path('api/interviews/', include('interviews.urls')),
+    path('api/notifications/', include('notifications.urls')),
 ]
