@@ -8,6 +8,7 @@ from .models import CandidateSkill, ATSResult
 from .serializers import CandidateSkillSerializer, ATSResultSerializer
 from .skill_extraction import extract_skills
 from .scoring import calculate_ats_score
+from .department_recommendation import recommend_department
 
 
 def _can_access_resume(user, resume):
@@ -154,3 +155,49 @@ class ATSResultListView(generics.ListAPIView):
         if resume_id:
             qs = qs.filter(resume_id=resume_id)
         return qs
+
+
+class RecommendDepartmentView(APIView):
+    """
+    POST /api/ats/candidates/{candidate_id}/recommend-department/
+
+    Uses the candidate's currently extracted skills (Phase 7) to pick the
+    best-matching department from ats/department_data.py and saves the
+    result onto CandidateProfile. Candidate can trigger this for
+    themselves; HR/Admin can trigger it for any candidate.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, candidate_id):
+        from candidates.models import CandidateProfile
+        candidate = get_object_or_404(CandidateProfile, id=candidate_id)
+
+        user = request.user
+        if user.role == user.Role.CANDIDATE and candidate.user_id != user.id:
+            return Response({"detail": "Not allowed."}, status=status.HTTP_403_FORBIDDEN)
+        if user.role == user.Role.INTERVIEWER:
+            return Response({"detail": "Not allowed."}, status=status.HTTP_403_FORBIDDEN)
+
+        skill_names = list(candidate.skills.values_list('skill_name', flat=True))
+        if not skill_names:
+            return Response(
+                {"detail": "No extracted skills found for this candidate. Run skill extraction first."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        dept_name, confidence, explanation = recommend_department(skill_names)
+
+        from departments.models import Department
+        department_obj = Department.objects.filter(name=dept_name).first() if dept_name else None
+
+        candidate.recommended_department = department_obj
+        candidate.recommended_department_confidence = confidence
+        candidate.recommended_department_explanation = explanation
+        candidate.save()
+
+        return Response({
+            "candidate_id": candidate.id,
+            "recommended_department": dept_name,
+            "confidence": confidence,
+            "explanation": explanation,
+        }, status=status.HTTP_200_OK)

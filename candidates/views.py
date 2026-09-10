@@ -1,9 +1,10 @@
 from rest_framework import generics, permissions, viewsets
+from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from .models import CandidateProfile
 from .serializers import CandidateProfileSerializer
-from accounts.permissions import IsCandidate
+from accounts.permissions import IsCandidate, IsAdminOrHR
 
 
 class MyCandidateProfileView(generics.RetrieveUpdateAPIView):
@@ -44,3 +45,60 @@ class CandidateProfileViewSet(viewsets.ReadOnlyModelViewSet):
         if user.is_authenticated and user.role == user.Role.CANDIDATE:
             self.permission_denied(self.request, message="Candidates cannot list other candidate profiles.")
         return super().get_permissions()
+
+
+class CandidateSearchView(generics.ListAPIView):
+    """
+    GET /api/candidates/search/
+
+    Advanced multi-criteria search across candidate name/email, skills,
+    department, job/application status, and ATS score - the fields
+    explicitly listed in the spec's search & filtering requirement.
+    HR/Admin only.
+
+    Query params (all optional, combinable):
+      name, email, skill, department, job, min_ats_score, application_status
+
+    Example:
+      /api/candidates/search/?department=3&min_ats_score=80&skill=Python
+    """
+    serializer_class = CandidateProfileSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAdminOrHR]
+
+    def get_queryset(self):
+        qs = CandidateProfile.objects.select_related('user', 'recommended_department').distinct()
+        params = self.request.query_params
+
+        name = params.get('name')
+        if name:
+            qs = qs.filter(user__username__icontains=name)
+
+        email = params.get('email')
+        if email:
+            qs = qs.filter(user__email__icontains=email)
+
+        skill = params.get('skill')
+        if skill:
+            qs = qs.filter(skills__skill_name__iexact=skill)
+
+        department = params.get('department')
+        if department:
+            qs = qs.filter(recommended_department_id=department)
+
+        job = params.get('job')
+        if job:
+            qs = qs.filter(applications__job_id=job)
+
+        application_status = params.get('application_status')
+        if application_status:
+            qs = qs.filter(applications__status=application_status)
+
+        min_ats_score = params.get('min_ats_score')
+        if min_ats_score:
+            from ats.models import ATSResult
+            candidate_ids = ATSResult.objects.filter(
+                overall_score__gte=float(min_ats_score)
+            ).values_list('resume__candidate_id', flat=True)
+            qs = qs.filter(id__in=candidate_ids)
+
+        return qs

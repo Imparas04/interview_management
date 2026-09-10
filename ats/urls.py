@@ -2,6 +2,7 @@ from django.urls import path
 from .views import (
     ExtractSkillsView, CandidateSkillListView,
     CalculateATSScoreView, ATSResultDetailView, ATSResultListView,
+    RecommendDepartmentView,
 )
 
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     path('score/', CalculateATSScoreView.as_view(), name='ats-score'),
     path('results/<int:pk>/', ATSResultDetailView.as_view(), name='ats-result-detail'),
     path('results/', ATSResultListView.as_view(), name='ats-result-list'),
+    path('candidates/<int:candidate_id>/recommend-department/', RecommendDepartmentView.as_view(), name='recommend-department'),
 ]

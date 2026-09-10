@@ -7,3 +7,5 @@ django-cors-headers
 django-filter
 pdfplumber
 python-docx
+gunicorn
+whitenoise

@@ -15,9 +15,14 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
             'id', 'user', 'phone', 'address', 'date_of_birth', 'summary',
             'linkedin_url', 'portfolio_url',
             'recommended_department', 'recommended_department_name',
+            'recommended_department_confidence', 'recommended_department_explanation',
             'created_at', 'updated_at',
         ]
-        # recommended_department is set by the ATS engine later, not by the
+        # recommended_department* is set by the ATS engine later, not by the
         # candidate themself - candidates can never assign their own
         # recommended department through this API.
-        read_only_fields = ['id', 'user', 'recommended_department', 'created_at', 'updated_at']
+        read_only_fields = [
+            'id', 'user', 'recommended_department',
+            'recommended_department_confidence', 'recommended_department_explanation',
+            'created_at', 'updated_at',
+        ]

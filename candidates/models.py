@@ -27,6 +27,8 @@ class CandidateProfile(models.Model):
         Department, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='recommended_candidates'
     )
+    recommended_department_confidence = models.FloatField(null=True, blank=True)
+    recommended_department_explanation = models.JSONField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
