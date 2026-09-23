@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ranking — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="jobs">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Candidate ranking</h1>
+          <p>Ranked by ATS score for a specific job.</p>
+        </div>
+      </div>
+
+      <div class="chip-filter-bar">
+        <div class="field" style="min-width:280px;">
+          <label>Job</label>
+          <select id="f-job"></select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank</th><th>Candidate</th><th>Department</th><th>ATS score</th><th>Status</th></tr></thead>
+          <tbody id="rank-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/hr-ranking.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidates — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="candidates">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Candidates</h1>
+          <p>Every candidate profile in the system.</p>
+        </div>
+      </div>
+
+      <div class="chip-filter-bar">
+        <div class="field"><label>Name</label><input type="text" id="f-name" placeholder="Search name"></div>
+        <div class="field"><label>Email</label><input type="text" id="f-email" placeholder="Search email"></div>
+        <div class="field"><label>Skill</label><input type="text" id="f-skill" placeholder="e.g. Python"></div>
+        <div class="field">
+          <label>Department</label>
+          <select id="f-department"><option value="">Any</option></select>
+        </div>
+        <div class="field"><label>Min ATS score</label><input type="number" id="f-min-ats" min="0" max="100"></div>
+        <div class="field">
+          <label>Application status</label>
+          <select id="f-app-status">
+            <option value="">Any</option>
+            <option value="applied">Applied</option>
+            <option value="ats_analysis">ATS analysis</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="hr_screening">HR screening</option>
+            <option value="technical_round">Technical round</option>
+            <option value="coding_round">Coding round</option>
+            <option value="managerial_round">Managerial round</option>
+            <option value="final_hr">Final HR</option>
+            <option value="selected">Selected</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <button class="btn btn-outline btn-sm" id="search-btn">Search</button>
+        <button class="btn btn-ghost btn-sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Recommended dept.</th><th>Confidence</th><th></th></tr></thead>
+          <tbody id="cand-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/candidates.js"></script>
+</body>
+</html>

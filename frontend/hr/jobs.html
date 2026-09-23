@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jobs — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="jobs">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Jobs</h1>
+          <p>Post openings and manage required skills.</p>
+        </div>
+        <button class="btn btn-primary" id="add-btn">+ Post a job</button>
+      </div>
+
+      <div class="chip-filter-bar">
+        <div class="field">
+          <label>Department</label>
+          <select id="f-department"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="f-status">
+            <option value="">All</option>
+            <option value="draft">Draft</option>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Search</label>
+          <input type="search" id="f-search" placeholder="Title, keyword…">
+        </div>
+        <button class="btn btn-outline btn-sm" id="filter-btn">Apply filters</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Department</th><th>Type</th><th>Openings</th><th>Status</th><th>Deadline</th><th></th></tr></thead>
+          <tbody id="job-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Add/Edit modal -->
+<div class="modal-overlay" id="job-modal">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <h2 id="job-modal-title">Post a job</h2>
+      <button class="modal-close" id="job-modal-close">&times;</button>
+    </div>
+    <div class="form-error-banner" id="job-form-error"></div>
+    <form id="job-form">
+      <input type="hidden" id="job-id">
+      <div class="field">
+        <label for="job-title">Title</label>
+        <input type="text" id="job-title" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="job-department">Department</label>
+          <select id="job-department" required></select>
+        </div>
+        <div class="field">
+          <label for="job-type">Job type</label>
+          <select id="job-type">
+            <option value="full_time">Full time</option>
+            <option value="part_time">Part time</option>
+            <option value="internship">Internship</option>
+            <option value="contract">Contract</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="job-description">Description</label>
+        <textarea id="job-description" required></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="job-exp-min">Experience min (years)</label>
+          <input type="number" id="job-exp-min" min="0" value="0">
+        </div>
+        <div class="field">
+          <label for="job-exp-max">Experience max (years)</label>
+          <input type="number" id="job-exp-max" min="0" value="2">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="job-education">Education required</label>
+          <input type="text" id="job-education" placeholder="e.g. B.Tech/BCA">
+        </div>
+        <div class="field">
+          <label for="job-openings">Number of openings</label>
+          <input type="number" id="job-openings" min="1" value="1">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="job-location">Location</label>
+          <input type="text" id="job-location">
+        </div>
+        <div class="field">
+          <label for="job-deadline">Application deadline</label>
+          <input type="date" id="job-deadline">
+        </div>
+      </div>
+      <div class="field">
+        <label for="job-keywords">Keywords (comma separated)</label>
+        <input type="text" id="job-keywords" placeholder="backend, api, rest">
+      </div>
+      <div class="field">
+        <label for="job-status">Status</label>
+        <select id="job-status">
+          <option value="draft">Draft</option>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Required skills</label>
+        <div id="skills-list"></div>
+        <div class="field-row" style="grid-template-columns: 2fr 1fr auto; align-items: end; margin-top: 8px;">
+          <div class="field" style="margin-bottom:0;"><input type="text" id="skill-name-input" placeholder="Skill name"></div>
+          <div class="field" style="margin-bottom:0;"><input type="number" id="skill-weight-input" placeholder="Weight" min="1" value="1"></div>
+          <button type="button" class="btn btn-outline btn-sm" id="add-skill-btn">Add</button>
+        </div>
+        <div class="hint">Weight controls how much this skill counts toward the ATS skills match score.</div>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" id="job-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="job-save-btn">Save job</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/jobs.js"></script>
+</body>
+</html>

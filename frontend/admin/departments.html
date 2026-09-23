@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Departments — RecruitOS Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="admin" data-page="departments">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Departments</h1>
+          <p>Departments candidates get routed into and jobs are posted under.</p>
+        </div>
+        <button class="btn btn-primary" id="add-btn">+ Add department</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Description</th><th>Status</th><th></th></tr></thead>
+          <tbody id="dept-tbody">${""}</tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Add/Edit modal -->
+<div class="modal-overlay" id="dept-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="dept-modal-title">Add department</h2>
+      <button class="modal-close" id="dept-modal-close">&times;</button>
+    </div>
+    <div class="form-error-banner" id="dept-form-error"></div>
+    <form id="dept-form">
+      <input type="hidden" id="dept-id">
+      <div class="field">
+        <label for="dept-name">Name</label>
+        <input type="text" id="dept-name" required>
+      </div>
+      <div class="field">
+        <label for="dept-desc">Description</label>
+        <textarea id="dept-desc"></textarea>
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="dept-active" checked style="width:auto; margin-right:6px;">Active</label>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" id="dept-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="dept-save-btn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/admin-departments.js"></script>
+</body>
+</html>

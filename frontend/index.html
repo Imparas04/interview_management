@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RecruitOS</title>
+</head>
+<body>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  if (isLoggedIn()) {
+    goToOwnDashboard();
+  } else {
+    window.location.href = "login.html";
+  }
+</script>
+</body>
+</html>

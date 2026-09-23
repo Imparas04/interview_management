@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidate — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="candidates">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1 id="cand-name">Candidate</h1>
+          <p id="cand-sub">Loading profile…</p>
+        </div>
+        <a href="candidates.html" class="btn btn-outline">&larr; Back to list</a>
+      </div>
+
+      <div class="chart-grid">
+        <div class="card" id="profile-card">
+          <h3>Profile</h3>
+          <div id="profile-body" class="loading-row"><span class="spinner"></span>Loading…</div>
+        </div>
+        <div class="card">
+          <h3>Recommended department</h3>
+          <div id="dept-rec-body" class="loading-row"><span class="spinner"></span>Loading…</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:18px;">
+        <h3>Extracted skills</h3>
+        <div id="skills-body" class="loading-row"><span class="spinner"></span>Loading…</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Job</th><th>Department</th><th>Status</th><th>Resume</th><th>ATS score</th><th></th></tr></thead>
+          <tbody id="apps-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ATS breakdown modal -->
+<div class="modal-overlay" id="ats-modal">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <h2>ATS score breakdown</h2>
+      <button class="modal-close" onclick="closeModal('ats-modal')">&times;</button>
+    </div>
+    <div id="ats-modal-body"></div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/candidate-detail.js"></script>
+</body>
+</html>

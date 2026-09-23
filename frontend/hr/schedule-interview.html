@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule interview — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="interviews">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content" style="max-width:640px;">
+      <div class="page-head">
+        <div>
+          <h1>Schedule an interview</h1>
+          <p>Conflicts for the same interviewer are checked automatically.</p>
+        </div>
+        <a href="interviews.html" class="btn btn-outline">&larr; Calendar</a>
+      </div>
+
+      <div class="card">
+        <div class="form-error-banner" id="form-error"></div>
+        <form id="schedule-form">
+          <div class="field">
+            <label for="f-application">Application</label>
+            <select id="f-application" required></select>
+          </div>
+          <div class="field">
+            <label for="f-round">Round</label>
+            <select id="f-round" required></select>
+          </div>
+          <div class="field">
+            <label for="f-interviewer">Interviewer (User ID)</label>
+            <input type="number" id="f-interviewer" min="1" required>
+            <div class="hint">Find the interviewer's user ID in the Django admin panel.</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-date">Date</label>
+              <input type="date" id="f-date" required>
+            </div>
+            <div class="field">
+              <label for="f-time">Time</label>
+              <input type="time" id="f-time" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-duration">Duration (minutes)</label>
+              <input type="number" id="f-duration" value="45" min="15" step="15">
+            </div>
+            <div class="field">
+              <label for="f-status">Status</label>
+              <select id="f-status">
+                <option value="scheduled">Scheduled</option>
+                <option value="confirmed">Confirmed</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-location">Location / link</label>
+            <input type="text" id="f-location" placeholder="https://meet.google.com/xyz or Room 204">
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit-btn">Schedule interview</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/hr-schedule-interview.js"></script>
+</body>
+</html>

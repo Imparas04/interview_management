@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applications — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="hr" data-page="applications">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Applications</h1>
+          <p>Review candidates and move them through the pipeline.</p>
+        </div>
+      </div>
+
+      <div class="chip-filter-bar">
+        <div class="field">
+          <label>Job</label>
+          <select id="f-job"><option value="">All jobs</option></select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="f-status">
+            <option value="">All</option>
+            <option value="applied">Applied</option>
+            <option value="ats_analysis">ATS analysis</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="hr_screening">HR screening</option>
+            <option value="technical_round">Technical round</option>
+            <option value="coding_round">Coding round</option>
+            <option value="managerial_round">Managerial round</option>
+            <option value="final_hr">Final HR</option>
+            <option value="selected">Selected</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <button class="btn btn-outline btn-sm" id="filter-btn">Apply</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Candidate</th><th>Job</th><th>Department</th><th>Status</th><th>Applied</th><th>Move to</th></tr></thead>
+          <tbody id="app-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/hr-applications.js"></script>
+</body>
+</html>

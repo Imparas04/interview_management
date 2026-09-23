@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interviews — RecruitOS HR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<style>
+  .fc { font-family: var(--font-body); --fc-border-color: var(--border); --fc-today-bg-color: var(--primary-tint); }
+  .fc .fc-button { background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink); text-transform: none; box-shadow: none; }
+  .fc .fc-button:hover { background: var(--bg); }
+  .fc .fc-button-primary:not(:disabled).fc-button-active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .fc-event { cursor: pointer; border: none; padding: 1px 4px; font-size: 11.5px; }
+</style>
+</head>
+<body data-role="hr" data-page="interviews">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Interview calendar</h1>
+          <p>All scheduled interviews across every candidate.</p>
+        </div>
+        <a href="schedule-interview.html" class="btn btn-primary">+ Schedule interview</a>
+      </div>
+
+      <div class="card">
+        <div id="calendar"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Interview detail modal -->
+<div class="modal-overlay" id="iv-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Interview details</h2>
+      <button class="modal-close" onclick="closeModal('iv-modal')">&times;</button>
+    </div>
+    <div id="iv-modal-body"></div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/hr-interviews.js"></script>
+</body>
+</html>

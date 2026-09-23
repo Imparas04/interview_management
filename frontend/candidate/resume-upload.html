@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume — RecruitOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body data-role="candidate" data-page="resume-upload">
+<div id="app">
+  <aside id="sidebar"></aside>
+  <div class="main">
+    <header id="topbar"></header>
+    <main id="content">
+      <div class="page-head">
+        <div>
+          <h1>Resume</h1>
+          <p>Upload a PDF or DOCX (max 5MB). We'll parse it and extract your skills automatically.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="form-error-banner" id="upload-error"></div>
+        <form id="upload-form" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <input type="file" id="resume-file" accept=".pdf,.docx" required style="max-width:320px;">
+          <button type="submit" class="btn btn-primary" id="upload-btn">Upload resume</button>
+        </form>
+      </div>
+
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table>
+          <thead><tr><th>File</th><th>Parsed name</th><th>Status</th><th>Uploaded</th><th></th></tr></thead>
+          <tbody id="resume-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Score modal -->
+<div class="modal-overlay" id="score-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Calculate ATS score</h2>
+      <button class="modal-close" onclick="closeModal('score-modal')">&times;</button>
+    </div>
+    <div class="form-error-banner" id="score-error"></div>
+    <div class="field">
+      <label for="score-job">Job</label>
+      <select id="score-job"></select>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('score-modal')">Cancel</button>
+      <button class="btn btn-primary" id="score-submit-btn">Calculate</button>
+    </div>
+    <div id="score-result" style="margin-top:16px;"></div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/router-guard.js"></script>
+<script src="../js/pages/candidate-resume.js"></script>
+</body>
+</html>

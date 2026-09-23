@@ -166,6 +166,27 @@ GET /api/applications/rank/?job=<job_id>
 ```
 HR/Admin only. Ranks every application for that job by its Phase 8 ATS score, descending, deterministic (unscored candidates sorted last, ties broken by application order - never random).
 
+## Bonus — Automatic Shortlist/Reject by ATS Score
+```
+POST /api/applications/auto-process/     body: {"job_id": 1, "shortlist_threshold": 75}
+```
+HR/Admin only. `shortlist_threshold` is optional, defaults to 75. For every application on the job still in `applied` status: extracts skills if missing, calculates the ATS score, moves it through `ats_analysis`, then auto-shortlists (score >= threshold) or auto-rejects (score < threshold) - all through the same enforced state machine, nothing bypasses `transitions.py`. Safe to re-run - only touches applications still sitting in `applied`.
+
+Response:
+```json
+{
+  "job_id": 1,
+  "threshold_used": 75.0,
+  "processed": 3,
+  "shortlisted": 2,
+  "rejected": 1,
+  "skipped": [],
+  "results": [
+    {"application_id": 1, "candidate": "rahul", "ats_score": 86.47, "new_status": "shortlisted"}
+  ]
+}
+```
+
 ---
 
 ## Phase 15 — Advanced Search

@@ -1,0 +1,103 @@
+/* ===== Design tokens =====
+   Palette: navy/charcoal sidebar, soft grey-white canvas, indigo primary,
+   emerald for positive states, amber for scores/attention, red for rejected.
+   Type: Space Grotesk for headings & data numbers, Inter for UI/body text. */
+:root {
+  --bg: #F6F7F9;
+  --surface: #FFFFFF;
+  --ink: #14181F;
+  --ink-soft: #4A5162;
+  --ink-faint: #8993A6;
+  --border: #E3E6EC;
+  --border-strong: #CBD1DD;
+
+  --primary: #2E4374;
+  --primary-hover: #24345C;
+  --primary-tint: #EAEEF7;
+
+  --sidebar-bg: #14181F;
+  --sidebar-ink: #C6CBD8;
+  --sidebar-ink-active: #FFFFFF;
+  --sidebar-hover: #1F2530;
+
+  --success: #1F8A70;
+  --success-tint: #E4F4EF;
+  --warn: #C1121F;
+  --warn-tint: #FBE9EA;
+  --gold: #B8860B;
+  --gold-tint: #FBF3DE;
+  --info: #2E6FBB;
+  --info-tint: #E8F1FB;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  margin: 0 0 .4em;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+h1 { font-size: 26px; }
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+p { margin: 0 0 1em; color: var(--ink-soft); }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--primary-tint); }
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ===== App shell layout ===== */
+#app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  padding: 28px 32px 60px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.page-head p { margin: 4px 0 0; }
+
+@media (max-width: 860px) {
+  #app { flex-direction: column; }
+  #content { padding: 20px 16px 40px; }
+}
